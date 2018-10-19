@@ -258,9 +258,9 @@ async function modCommands(message, args) {
 			}]
 		});
 		await message.channel.send("\n\n\nOur server also offers several specialized roles. Message a mod if you would like any of these roles.\n\n");
-		await message.channel.send(message.guild.emojis.find("buttonRed") + "**Smash Box Kickstarter Backer**");
-		await message.channel.send(message.guild.emojis.find("buttonRed") + ":buttonRed: **Smash Box Alpha Backer**");
-		await message.channel.send(message.guild.emojis.find("buttonRed") + ":buttonRed: **Tournament Organizers**");
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + "**Smash Box Kickstarter Backer**");
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + ":buttonRed: **Smash Box Alpha Backer**");
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + ":buttonRed: **Tournament Organizers**");
 	} else if (args[0] == "!setuprules"){
 		console.log("Setting up rules channel");
 		await message.channel.send({
@@ -296,10 +296,10 @@ async function modCommands(message, args) {
 			}]
 		});
 		await message.channel.send(":buttonRed: Permanent invite link: <http://hitboxarcade.com/discord>"
-			+ "\n" + message.guild.emojis.find("buttonRed") + " Hit Box site: <https://hitboxarcade.com>"
-			+ "\n" + message.guild.emojis.find("buttonRed") + " Hit Box Twitter: <https://twitter.com/hit_box>"
-			+ "\n" + message.guild.emojis.find("buttonWhite") + " Check #announcements often for news, firmware updates, and releases!"
-			+ "\n" + message.guild.emojis.find("buttonWhite") + " Set your roles over in #role-assignment");
+			+ "\n" + message.guild.emojis.find("name","buttonRed") + " Hit Box site: <https://hitboxarcade.com>"
+			+ "\n" + message.guild.emojis.find("name","buttonRed") + " Hit Box Twitter: <https://twitter.com/hit_box>"
+			+ "\n" + message.guild.emojis.find("name","buttonWhite") + " Check #announcements often for news, firmware updates, and releases!"
+			+ "\n" + message.guild.emojis.find("name","buttonWhite") + " Set your roles over in #role-assignment");
 		await message.channel.send({
 			files: [{
 				attachment: "./img/Separator.png",
