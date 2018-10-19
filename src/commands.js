@@ -259,8 +259,8 @@ async function modCommands(message, args) {
 		});
 		await message.channel.send("\n\n\nOur server also offers several specialized roles. Message a mod if you would like any of these roles.\n\n");
 		await message.channel.send(message.guild.emojis.find("name","buttonRed") + "**Smash Box Kickstarter Backer**");
-		await message.channel.send(message.guild.emojis.find("name","buttonRed") + ":buttonRed: **Smash Box Alpha Backer**");
-		await message.channel.send(message.guild.emojis.find("name","buttonRed") + ":buttonRed: **Tournament Organizers**");
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + "**Smash Box Alpha Backer**");
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + "**Tournament Organizers**");
 	} else if (args[0] == "!setuprules"){
 		console.log("Setting up rules channel");
 		await message.channel.send({
