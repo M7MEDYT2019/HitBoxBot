@@ -257,16 +257,16 @@ async function modCommands(message, args) {
 				name: "HeaderSpecial.png"
 			}]
 		});
-		await message.channel.send("Our server also offers several specialized roles. Message a mod if you would like any of these roles.");
-		await message.channel.send(":buttonRed: **Smash Box Kickstarter Backer**");
-		await message.channel.send(":buttonRed: **Smash Box Alpha Backer**");
-		await message.channel.send(":buttonRed: **Tournament Organizers**");
+		await message.channel.send("\n\n\nOur server also offers several specialized roles. Message a mod if you would like any of these roles.\n\n");
+		await message.channel.send(message.guild.emojis.find("buttonRed") + "**Smash Box Kickstarter Backer**");
+		await message.channel.send(message.guild.emojis.find("buttonRed") + ":buttonRed: **Smash Box Alpha Backer**");
+		await message.channel.send(message.guild.emojis.find("buttonRed") + ":buttonRed: **Tournament Organizers**");
 	} else if (args[0] == "!setuprules"){
 		console.log("Setting up rules channel");
 		await message.channel.send({
 			files: [{
-				attachment: "./img/Hitbox.png",
-				name: "Hitbox.png"
+				attachment: "./img/hitboxlogo.png",
+				name: "hitboxlogo.png"
 			}]
 		});
 		await message.channel.send("**Welcome to the official Hit Box discord server!**");
