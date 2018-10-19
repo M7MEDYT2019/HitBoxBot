@@ -93,7 +93,7 @@ function roleInRoles(roleName, roles) {
 
 async function botReply(message, DiscordBot) {
 	let a = Math.floor(Math.random() * 10);
-	let s = ["dongchamp", "puffWhat", "thinkRespirator", "thinkController", "neutralRespirator", "KillMe", "antzodia", "ditto", "angryRespirator"];
+	let s = ["gravy", "oof", "feb22", "deletethis", "drmario"];
 	let selectedName = s[Math.floor(Math.random() * s.length)];
 	
 	let emote = DiscordBot.emojis.find("name", selectedName);
