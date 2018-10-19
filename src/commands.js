@@ -261,7 +261,7 @@ async function modCommands(message, args) {
 		await message.channel.send(":buttonRed: **Smash Box Kickstarter Backer**");
 		await message.channel.send(":buttonRed: **Smash Box Alpha Backer**");
 		await message.channel.send(":buttonRed: **Tournament Organizers**");
-	} else if (args[0] == "!setupRules"){
+	} else if (args[0] == "!setuprules"){
 		console.log("Setting up rules channel");
 		await message.channel.send({
 			files: [{
@@ -296,10 +296,10 @@ async function modCommands(message, args) {
 			}]
 		});
 		await message.channel.send(":buttonRed: Permanent invite link: <http://hitboxarcade.com/discord>"
-			+ "\n:buttonRed: Hit Box site: <https://hitboxarcade.com>"
-			+ "\n:buttonRed: Hit Box Twitter: <https://twitter.com/hit_box>"
-			+ "\n:buttonWhite: Check #announcements often for news, firmware updates, and releases!"
-			+ "\n:buttonWhite: Set your roles over in #role-assignment");
+			+ "\n" + message.guild.emojis.find("buttonRed") + " Hit Box site: <https://hitboxarcade.com>"
+			+ "\n" + message.guild.emojis.find("buttonRed") + " Hit Box Twitter: <https://twitter.com/hit_box>"
+			+ "\n" + message.guild.emojis.find("buttonWhite") + " Check #announcements often for news, firmware updates, and releases!"
+			+ "\n" + message.guild.emojis.find("buttonWhite") + " Set your roles over in #role-assignment");
 		await message.channel.send({
 			files: [{
 				attachment: "./img/Separator.png",
