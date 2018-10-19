@@ -238,7 +238,74 @@ async function modCommands(message, args) {
 		}
 	} else if (args[0] == "!roleassign") {
 		console.log("Setting up role assignment channel");
-		// TODO
+		await message.channel.send({
+			files: [{
+				attachment: "./img/HeaderRoles.png",
+				name: "HeaderRoles.png"
+			}]
+		});
+		await message.channel.send("**Set your roles below**");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/HeaderRoleSelect.png",
+				name: "HeaderRoleSelect.png"
+			}]
+		});
+		await message.channel.send({
+			files: [{
+				attachment: "./img/HeaderSpecial.png",
+				name: "HeaderSpecial.png"
+			}]
+		});
+		await message.channel.send("Our server also offers several specialized roles. Message a mod if you would like any of these roles.");
+		await message.channel.send(":buttonRed: **Smash Box Kickstarter Backer**");
+		await message.channel.send(":buttonRed: **Smash Box Alpha Backer**");
+		await message.channel.send(":buttonRed: **Tournament Organizers**");
+	} else if (args[0] == "!setupRules"){
+		console.log("Setting up rules channel");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/Hitbox.png",
+				name: "Hitbox.png"
+			}]
+		});
+		await message.channel.send("**Welcome to the official Hit Box discord server!**");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/Separator.png",
+				name: "Separator.png"
+			}]
+		});
+		await message.channel.send("This server is for any and all discussion related to the Hit Box and Smash Box arcade controllers, designed for optimal gameplay in all sorts of fighting games and platform fighters. Enjoy your time here!");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/HeaderRules.png",
+				name: "HeaderRules.png"
+			}]
+		});
+		await message.channel.send("1. This server has a zero-tolerance policy for racism, sexism, harassment, and such."
+			+ "\n2. No NSFW content is allowed in any channel."
+			+ "\n3. Keep discussion in the appropriate channels."
+			+ "\n4. Do not spam chat with emotes, memes, copypasta, etc"
+			+ "\n5. Please do not ping mods, admins, or Hit Box staff unnecessarily."
+			+ "\n6. This is a public server. Treat everything you post in this Discord as public information.");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/HeaderLinks.png",
+				name: "HeaderLinks.png"
+			}]
+		});
+		await message.channel.send(":buttonRed: Permanent invite link: <http://hitboxarcade.com/discord>"
+			+ "\n:buttonRed: Hit Box site: <https://hitboxarcade.com>"
+			+ "\n:buttonRed: Hit Box Twitter: <https://twitter.com/hit_box>"
+			+ "\n:buttonWhite: Check #announcements often for news, firmware updates, and releases!"
+			+ "\n:buttonWhite: Set your roles over in #role-assignment");
+		await message.channel.send({
+			files: [{
+				attachment: "./img/Separator.png",
+				name: "Separator.png"
+			}]
+		});
 	} else if (args[0] == "!emotelist") {
 		if (args.length > 1) {
 			let arr = [];
