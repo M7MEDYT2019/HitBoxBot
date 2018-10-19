@@ -295,7 +295,7 @@ async function modCommands(message, args) {
 				name: "HeaderLinks.png"
 			}]
 		});
-		await message.channel.send(":buttonRed: Permanent invite link: <http://hitboxarcade.com/discord>"
+		await message.channel.send(message.guild.emojis.find("name","buttonRed") + " Permanent invite link: <http://hitboxarcade.com/discord>"
 			+ "\n" + message.guild.emojis.find("name","buttonRed") + " Hit Box site: <https://hitboxarcade.com>"
 			+ "\n" + message.guild.emojis.find("name","buttonRed") + " Hit Box Twitter: <https://twitter.com/hit_box>"
 			+ "\n" + message.guild.emojis.find("name","buttonWhite") + " Check #announcements often for news, firmware updates, and releases!"
