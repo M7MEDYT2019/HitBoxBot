@@ -109,7 +109,7 @@ DiscordBot.on('guildMemberAdd', async(member) => {
 		setTimeout(() => {
 			member.addRole(member.guild.roles.find("name", "Member"));
 		}, 120000) // 2 minutes
-		await introductionsChannel.send("Welcome <@!" + member.id + ">" + "! You'll be granted a Member role very soon. Be sure to read through "+ DiscordBot.channels.get(misc.ids.rules) + "!";);
+		await introductionsChannel.send("Welcome <@!" + member.id + ">" + "! You'll be granted a Member role very soon. Be sure to read through " + DiscordBot.channels.get(misc.ids.rules) + "!");
 	}
 });
 
