@@ -2,14 +2,13 @@
     commands.js
     Handles comands, performing assorted responses to input.
 
-    Written by Adam "WaveParadigm" Gincel for the Icons: Combat Arena Discord Server.	
+    Written by Adam "WaveParadigm" Gincel for the Icons: Combat Arena Discord Server.
+	Modified by Tyler "NFreak" Morrow for the Hit Box Discord server.
 */
 
 const fs = require("fs");
 const misc = require("./misc.js");
 const blacklist = require("./blacklist.js");
-//let challengeList = JSON.parse(fs.readFileSync("./info/challenge.json", "utf8"));
-let voteList = JSON.parse(fs.readFileSync("./info/votes.json", "utf8"));
 let todoList = JSON.parse(fs.readFileSync("./info/todo.json", "utf8"));
 let userCommandList = JSON.parse(fs.readFileSync("./info/userCommands.json", "utf8"));
 
@@ -196,7 +195,7 @@ async function modCommands(message, args) {
 		await message.channel.send({
 			files: [{
 				attachment: "./info/censorshipInfo.csv",
-				name: "CgccLog.csv"
+				name: "HitboxLog.csv"
 			}]
 		});
 	} else if (args[0] == "!kill") {
@@ -239,43 +238,7 @@ async function modCommands(message, args) {
 		}
 	} else if (args[0] == "!roleassign") {
 		console.log("Setting up role assignment channel");
-		await message.channel.send({
-			files: [{
-				attachment: "./img/HeaderRoles.png",
-				name: "HeaderRoles.png"
-			}]
-		});
-		await message.channel.send("CGCC has a number of controller modding skill roles! Here, you can use Discord reactions to assign your server-wide roles. Just click on the color-coded emote reactions below, and you'll be automatically assigned a role. To remove a role from yourself, just react again!");
-		await message.channel.send({
-			files: [{
-				attachment: "./img/Roles1.png",
-				name: "Roles1.png"
-			}]
-		});await message.channel.send({
-			files: [{
-				attachment: "./img/Roles2.png",
-				name: "Roles2.png"
-			}]
-		});await message.channel.send({
-			files: [{
-				attachment: "./img/Roles3.png",
-				name: "Roles3.png"
-			}]
-		});
-		await message.channel.send("**Set your roles below**");
-		await message.channel.send("*Your primary role is your strongest skill, and also sets your name color. Secondary roles are for anything else you work with or dabble in!*");
-		await message.channel.send({
-			files: [{
-				attachment: "./img/RolesPrimary.png",
-				name: "RolesPrimary.png"
-			}]
-		});
-		await message.channel.send({
-			files: [{
-				attachment: "./img/RolesSecondary.png",
-				name: "RolesSecondary.png"
-			}]
-		});
+		// TODO
 	} else if (args[0] == "!emotelist") {
 		if (args.length > 1) {
 			let arr = [];
@@ -290,7 +253,7 @@ async function modCommands(message, args) {
 
 			return await message.channel.send("Set emotelist to: " + arr.length == 0 ? "Empty." : arr.toString());
 		} else {
-			return await message.channel.send("Example usage: `!emotelist zhuW zhuW2 puffWhat`.");
+			return await message.channel.send("Example usage: `!emotelist hitbox smashbox gravy`.");
 		}
 	} else if (args[0] == "!setcommand") {
 		if (args.length < 3) {
@@ -389,89 +352,11 @@ async function modCommands(message, args) {
 		}
 		return await message.channel.send(s);
 	}
-	else if (args[0] == "!getvotes") {
-		if (args.length != 2) {
-			return await message.channel.send("USAGE: `!getvotes ENTRY-NUMBER`");
-		} 
-		let total = 0;
-		for (let i = 0; i < voteList.length; i++) {
-			if (voteList[i].vote == args[1]){
-				total++;
-			}
-		}
-		return await message.channel.send("Total votes for entry " + args[1] + ": " + total);
-	}
 }
 
 async function userCommands(message, args) {
-	if (args[0] == "!contribute") {
-		let guild = message.member.guild;
-		await guild.member(message.author).addRole(guild.roles.find("name", "Contributor"));
-		return await message.channel.send("<@!" + message.author.id + ">, you are now a Contributor. You can post **ONE** message to " + message.guild.channels.find("name", "resources") + ". Thank you for your contribution!");
-	}
-	/*else if (args[0] == "!challenge") {
-		if (args.length != 2) {
-			return await message.channel.send("USAGE: `!challenge LINK-TO-CONTEST-ENTRY`");
-		} 
-		
-		//first check if this user has an entry already
-		let exists = false;
-		for (let i = 0; i < 1.length; i++) {
-			if (challengeList[i].ID == message.author.toString()) {
-				challengeList[i].entry = args[1].toString();
-				exists = true;
-			}
-		}
-		if (exists) {
-			console.log("Updating entry for user : " + message.author.username + "to " + args[1].toString());
-			fs.writeFileSync("./info/challenge.json", JSON.stringify(challengeList, null, "\t"), "utf8");
-			return await message.channel.send("Your challenge entry has been updated! Good luck!");
-		}
-		else { 
-			let toAdd = {
-				"user": message.author.username,
-				"ID": message.author.toString(),
-				"entry": args[1].toString(),
-			}
-			challengeList.push(toAdd);
-			console.log("Submitting entry for user : " + message.author.username + " - " + args[1].toString());
-			fs.writeFileSync("./info/challenge.json", JSON.stringify(challengeList, null, "\t"), "utf8");
-			return await message.channel.send("Thank you for entering the CustomGCC Challenge. Good luck!");
-		}
-	}*/
-	// Unfortunately this is not anonymous in its current, quick implementation. We store user IDs, but not usernames/tags,
-	// so that we can ensure votes aren't stored twice, and so an admin *who hasn't entered* can ensure votes are from
-	// real server members, but in the future this should be hashed.
-	else if (args[0] == "!vote") {
-		if (args.length != 2) {
-			return await message.channel.send("USAGE: `!vote ENTRY-NUMBER`");
-		} 
-		//first check if this user has voted already
-		let exists = false;
-		for (let i = 0; i < voteList.length; i++) {
-			if (voteList[i].userID == message.author.toString()) {
-				voteList[i].vote = args[1].toString();
-				exists = true;
-			}
-		}
-		if (exists) {
-			fs.writeFileSync("./info/votes.json", JSON.stringify(voteList, null, "\t"), "utf8");
-			return await message.channel.send("Your vote has been updated!");
-		}
-		else { 
-			let toAdd = {
-				//"user": message.author.username,
-				"userID": message.author.toString(),
-				"vote": args[1].toString(),
-			}
-			voteList.push(toAdd);
-			fs.writeFileSync("./info/votes.json", JSON.stringify(voteList, null, "\t"), "utf8");
-			return await message.channel.send("Your vote has been accepted!");
-		}
-	}
-	else if (args[0] == "!help") {
-		let userHelpString = "`!contribute` - Allows you to submit a single post to #resources\n";
-		//userHelpString += "`!challenge` - Submit or update your entry to the current challenge\n";
+	if (args[0] == "!help") {
+		let userHelpString = "";
 		for (let i = 0; i < userCommandList.length; i++) {
 			if (!userCommandList[i].hide){
 				userHelpString += "`" + userCommandList[i].command + "` -  " + userCommandList[i].description + "\n";

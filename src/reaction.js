@@ -11,38 +11,30 @@ const misc = require("./misc.js");
 
 let removeReacts = true;
 const emojiRoleDict = {
-	"cgccPurple": "Button Creator",
-	"cgccGreen": "Controller Painter",
-	"cgccOrange": "Functional Modder",
-	"cgccTeal": "Electrical Modder",
-	"cgccLime": "Graphic Designer",
-	"cgccPink": "Cable Modder"
+	"hitbox" : "Hit Box User",
+	"smashbox" : "Smash Box User"
 }
 
 function emojiToRole(emojiName, messageID) {
 	let ret = emojiRoleDict[emojiName];
-	
-	if (messageID == misc.ids.secondary) {
-		ret += " (Secondary)";
-	}
 	return ret;
 }
 
 async function handleReactionAdd(messageReaction, user, DiscordBot) {
 	if (messageReaction.message.channel.name == "role-assignment") { 
 		console.log(messageReaction.emoji.name);
-		if (messageReaction.emoji.name == "cgccWhite") {
-			console.log("Received cgccWhite react");
+		if (messageReaction.emoji.name == "gravy") {
+			console.log("Received gravy react");
 			//add role emotes
 			removeReacts = false;
 			let emojiNames = JSON.parse(fs.readFileSync("./info/roleEmoji.json", "utf8"));
 			for (let i = 0; i < emojiNames.length; i++) {
 				await messageReaction.message.react(DiscordBot.emojis.find("name", emojiNames[i]));
 			}
-			await messageReaction.remove(user); //remove the cgccWhite emoji
+			await messageReaction.remove(user); //remove the gravy emoji
 			removeReacts = true;
 		} else {
-			console.log("Received something other than cgccWhite");
+			console.log("Received something other than gravy");
 			let guild = messageReaction.message.member.guild;
 			let hasRole = false;
 			try {

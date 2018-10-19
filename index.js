@@ -1,8 +1,8 @@
 /*
-	CGCC StickBot index.js
+	HitBoxBot index.js
 	
 	Originally written by Adam "WaveParadigm" Gincel for the Icons: Combat Arena Discord Server. 
-	Modified by Tyler "NFreak" Morrow for the CGCC Discord Server.
+	Modified by Tyler "NFreak" Morrow for the Hit Box Discord.
 */
 
 //@ts-check
@@ -31,9 +31,6 @@ const updateCacheEvery = 500;
 let numMessages = 0;
 let mainGuild = null;
 
-//Intro text
-let intros = JSON.parse(fs.readFileSync("./info/intros.json", "utf8"));
-
 //Create DiscordBot
 const DiscordBot = new Discord.Client({ 
 	//autofetch: ['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'],
@@ -60,16 +57,10 @@ DiscordBot.on('message', async message => {
 	// Check all messages for userCommands
 	await commands.userCommands(message, args);
 
-	// If someone asks StickBot a question
+	// If someone asks HitBoxBot a question
 	if (message.isMemberMentioned(DiscordBot.user) && message.content[message.content.length - 1] == "?") {
 		await misc.botReply(message, DiscordBot);
 	}
-	
-	//Handle Gallery posts
-	await misc.galleryImagesOnly(message);
-	
-	//Remove Contributor role after a single post
-	await misc.removeContributor(message);
 	
 	//Handle all blacklist removal/warning
 	let censored = await blacklist.handleBlacklist(message, DiscordBot.user.tag);
@@ -108,18 +99,17 @@ DiscordBot.on("voiceStateUpdate", async(oldMember, newMember) => {
 //Executed upon a new user joining the server
 DiscordBot.on('guildMemberAdd', async(member) => {
 	let introductionsChannel = DiscordBot.channels.get(misc.ids.introductions);
-	var rulesAndRoles = " Please read through "+ DiscordBot.channels.get(misc.ids.rules) + ", set a role in " + DiscordBot.channels.get(misc.ids.roleassignment) + ", and have a great time here!";
-	var ran = Math.floor(Math.random() * intros.length);
-	if (member.displayName.includes("discord.gg") || member.displayName.includes("free games") || member.displayName.includes("free ow")){
+	if (member.displayName.includes("discord.gg") || member.displayName.includes("free games") 
+	|| member.displayName.includes("free ow") || member.displayName.includes("twitch.tv") 
+	|| member.displayName.includes("20xx.gg") || member.displayName.includes("b0xx.com") {
 		console.log("Kicking a spambot: " + member.displayName);
+		member.send("Spambots are not welcome in this server. If you believe this was in error, remove the URL or spam phrase from your username before rejoining.");
 		await member.kick("Spambot eliminated");
 	} else {
-		if (member.id === "118603282670288898" ) {
-			await introductionsChannel.send("Making notches better than Mike Haze! It's- oh, well this is awkward... Ughhh, hi Mike, you make very nice notches btw. Welcome " + "<@!" + member.id + ">" + "!" + rulesAndRoles);
-		}
-		else {
-			await introductionsChannel.send(intros[ran] + "<@!" + member.id + ">" + "!" + rulesAndRoles);
-		}
+		setTimeout(() => {
+			member.addRole(member.guild.roles.find("name", "Member"));
+		}, 120000) // 2 minutes
+		await introductionsChannel.send("Welcome <@!" + member.id + ">" + "! You'll be granted a Member role very soon. Be sure to read through "+ DiscordBot.channels.get(misc.ids.rules) + "!";);
 	}
 });
 
@@ -134,7 +124,7 @@ DiscordBot.login(discordToken).catch(function (reason) {
 DiscordBot.on('ready', async () => {
 	mainGuild = DiscordBot.guilds.get(misc.ids.server);
 	misc.mainGuild = mainGuild;
-	console.log('Stickbot is ready');
+	console.log('HitBoxBot is ready');
 	DiscordBot.setMaxListeners(0); //done to ensure it responds to everything regardless of how busy the server gets
 	await DiscordBot.user.setActivity("Type !help for commands!");
 	await misc.cacheRoleMessages(DiscordBot);

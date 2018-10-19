@@ -3,7 +3,7 @@
     Contains useful miscellaneous functions used throughout the bot.
 
     Written by Adam "WaveParadigm" Gincel for the Icons: Combat Arena Discord Server.
-    Modified by Tyler "NFreak" Morrow for the CGCC Discord Server.
+	Modified by Tyler "NFreak" Morrow for the Hit Box Discord server.
 */
 const fs = require("fs");
 const request = null;
@@ -12,7 +12,6 @@ const uuid = require("uuid/v4");
 const ids = JSON.parse(fs.readFileSync("./info/ids.json", "utf8"));
 
 let reminders = JSON.parse(fs.readFileSync("./info/reminders.json", "utf8"));
-let intros = JSON.parse(fs.readFileSync("./info/intros.json", "utf8"));
 let mainGuild = null;
 
 let isCheckingVoice = false;
@@ -122,24 +121,6 @@ async function cacheRoleMessages(DiscordBot) {
 	process.stdout.write("Cached role messages. ");
 }
 
-async function galleryImagesOnly(message) {
-	if (message.channel.name == "gallery") { 
-		console.log("New message posted in gallery");
-		if (!(message.attachments.size > 0 && message.attachments.every(attachIsImage))) {
-		    message.delete();
-		    console.log("Deleted non-image post from #gallery from user " + message.author);
-		}
-	}
-}
-
-async function removeContributor(message) {
-	let guild = message.member.guild;
-	if (message.channel.name == "resources") { 
-		console.log("New message posted in resources");
-		await guild.member(message.author).removeRole(guild.roles.find("name", "Contributor"));
-	}
-}
-
 function attachIsImage(msgAttach) {
     let url = msgAttach.url;
     //True if this url is a PNG or JPG image. Kind of hacky to ignore case
@@ -157,8 +138,6 @@ module.exports.memberIsMod = memberIsMod;
 module.exports.memberHasRole = memberHasRole;
 module.exports.cacheRoleMessages = cacheRoleMessages;
 module.exports.ids = ids;
-module.exports.galleryImagesOnly = galleryImagesOnly;
-module.exports.removeContributor = removeContributor;
 module.exports.botReply = botReply;
 module.exports.reminders = reminders;
 module.exports.addReminder = addReminder;
