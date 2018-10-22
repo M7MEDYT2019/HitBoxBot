@@ -12,6 +12,9 @@ const blacklist = require("./blacklist.js");
 let todoList = JSON.parse(fs.readFileSync("./info/todo.json", "utf8"));
 let userCommandList = JSON.parse(fs.readFileSync("./info/userCommands.json", "utf8"));
 
+//Spambot detection
+let spamlist = JSON.parse(fs.readFileSync("./info/spam.json", "utf8"));
+
 let commandPrefix = "!";
 let helpString = ["", ""];
 
