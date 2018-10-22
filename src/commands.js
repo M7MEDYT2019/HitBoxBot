@@ -29,7 +29,7 @@ helpString[0] += "`!say CHANNEL MESSAGE` - Send any message to any channel.\n";
 helpString[0] += "`!purge CHANNEL NUMBER` - Delete NUMBER messages from CHANNEL.\n";
 helpString[0] += "`!remindme DAYS MESSAGE` - Send an automatic message to the bot-spam channel after `DAYS` days have passed.\n";
 
-helpString[1] += "`!emotelist EMOTES` - The list of emotes to add to a message when reacting with this server's role emote.\n";
+helpString[1] += "`!emotelist EMOTES` - The list of emotes to add to a message when reacting with :cgccWhite:.\n";
 helpString[1] += "`!todo` - Display the todo list.\n";
 helpString[1] += "`!todo add task` - Adds `task` to the todo list.\n";
 helpString[1] += "`!todo remove task` - Removes `task` from the todo list. Either by string or number.\n";
@@ -39,7 +39,9 @@ helpString[1] += "`!blacklist remove word` - Remove `word` from the blacklist.\n
 helpString[1] += "`!blacklist violations ID|Tag` - List all words that were removed as violations from a user with that ID or Tag.\n";
 helpString[1] += "`!blacklist warnings ID|Tag` - List all words that were flagged as warnings from a user with that ID or Tag.\n";
 helpString[1] += "`!log` - Print a log of all users with recorded blacklist warnings or infractions.\n";
-helpString[1] += "`!logfile` - Send a .csv file containing users and the quantity of violations/warnings.\n"
+helpString[1] += "`!logfile` - Send a .csv file containing users and the quantity of violations/warnings.\n";
+helpString[1] += "`!spambots add word' - Add a string to the new user spambot filter\n";
+helpString[1] += "`!spambots remove word' - Remove a string from the spambot filter\n";
 
 
 
@@ -418,6 +420,38 @@ async function modCommands(message, args) {
 			}
 		}
 		return await message.channel.send(s);
+	}
+	else if (args[0] == "!spambots") {
+		if (args.length == 1) {
+			let str = "Words on the spambot filter: \n`";
+			for (let i = 0; i < spamlist.length; i++) {
+				str += spamlist[i] + "\n";
+			}
+			str += "`";
+			return await message.channel.send(str);
+		}
+		else if (args.length > 1 && args[1] == "add") {
+			if (args.length > 2) {
+				spamlist.push(args[2]);
+				fs.writeFileSync('./info/spamlist.json', JSON.stringify(spamlist), 'utf8');
+				await message.channel.send("`" + args[2] + "` has been added to the spamlist.");
+			} else {
+				await message.channel.send("Usage: `!spamlist add word`");
+			}
+		} else if (args.length > 1 && args[1] == "remove") {
+			if (args.length > 2) {
+				let ind = spamlist.indexOf(args[2]);
+				if (ind > -1) {
+					spamlist.splice(ind, 1);
+					fs.writeFileSync('./info/spamlist.json', JSON.stringify(spamlist), 'utf8');
+					await message.channel.send("`" + args[2] + "` has been removed from the spamlist.");
+				} else {
+					await message.channel.send("`" + args[2] + "` was not found in the spamlist.");
+				}
+			} else {
+				await message.channel.send("Usage: `!spamlist remove word`");
+			}
+		}
 	}
 }
 
