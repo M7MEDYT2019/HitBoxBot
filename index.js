@@ -31,13 +31,14 @@ const updateCacheEvery = 500;
 let numMessages = 0;
 let mainGuild = null;
 
+//Spambot detection
+let spambots = JSON.parse(fs.readFileSync("./info/spam.json", "utf8"));
+
 //Create DiscordBot
 const DiscordBot = new Discord.Client({ 
 	//autofetch: ['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'],
 	messageCacheMaxSize: updateCacheEvery + 50
 });
-
-
 
 //Executed upon a message being sent to any channel the bot can look at
 DiscordBot.on('message', async message => {
@@ -99,13 +100,19 @@ DiscordBot.on("voiceStateUpdate", async(oldMember, newMember) => {
 //Executed upon a new user joining the server
 DiscordBot.on('guildMemberAdd', async(member) => {
 	let introductionsChannel = DiscordBot.channels.get(misc.ids.introductions);
-	if (member.displayName.includes("discord.gg") || member.displayName.includes("free games") 
-	|| member.displayName.includes("free ow") || member.displayName.includes("twitch.tv") 
-	|| member.displayName.includes("20xx.gg") || member.displayName.includes("b0xx.com")) {
-		console.log("Kicking a spambot: " + member.displayName);
-		member.send("Spambots are not welcome in this server. If you believe this was in error, remove the URL or spam phrase from your username before rejoining.");
-		await member.kick("Spambot eliminated");
-	} else {
+	
+	//Handle spambots and send intro messages
+	var spam = false;
+	for (let i = 0; i < spambots.length && !spam; i++){
+		if (member.displayName.includes(spambots[i])){
+			console.log("Kicking a spambot: " + member.displayName);
+			member.send("Spambots are not welcome in this server. If you believe this was in error, remove the URL or spam phrase from your username before rejoining.");
+			spam = true;
+			await member.kick("Spambot eliminated");
+		}
+	}
+	
+	if (!spam){
 		setTimeout(() => {
 			member.addRole(member.guild.roles.find("name", "Member"));
 		}, 120000) // 2 minutes

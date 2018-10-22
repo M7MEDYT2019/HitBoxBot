@@ -81,6 +81,12 @@ function configure() {
 		fs.writeFileSync("./info/reminders.json", "[]", "utf8");
 		console.log("./info/reminders.json created. A list of objects with Dates and Messages, sent to the ids.reminders channel once the given date is passed.");
 	}	
+	
+	if (!fs.existsSync("./info/spam.json")) {
+		didConfigure = true;
+		fs.writeFileSync("./info/spam.json", "[]", "utf8");
+		console.log("./info/spam.json created");
+	}
 
 	if (didConfigure) {
 		console.log("Configuration complete.");
