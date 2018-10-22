@@ -433,7 +433,7 @@ async function modCommands(message, args) {
 		else if (args.length > 1 && args[1] == "add") {
 			if (args.length > 2) {
 				spamlist.push(args[2]);
-				fs.writeFileSync('./info/spamlist.json', JSON.stringify(spamlist), 'utf8');
+				fs.writeFileSync('./info/spam.json', JSON.stringify(spamlist), 'utf8');
 				await message.channel.send("`" + args[2] + "` has been added to the spamlist.");
 			} else {
 				await message.channel.send("Usage: `!spamlist add word`");
@@ -443,7 +443,7 @@ async function modCommands(message, args) {
 				let ind = spamlist.indexOf(args[2]);
 				if (ind > -1) {
 					spamlist.splice(ind, 1);
-					fs.writeFileSync('./info/spamlist.json', JSON.stringify(spamlist), 'utf8');
+					fs.writeFileSync('./info/spam.json', JSON.stringify(spamlist), 'utf8');
 					await message.channel.send("`" + args[2] + "` has been removed from the spamlist.");
 				} else {
 					await message.channel.send("`" + args[2] + "` was not found in the spamlist.");
